@@ -40,8 +40,10 @@ public class UserAction extends ActionSupport {
         LoginResponse loginRes=new LoginResponse();
         String userId=SnowflakeIdWorker.instance.nextId()+"";
         loginRes.setUserId(userId);
-        String token=getJwtToken(userId,"","18565574703");
-        loginRes.setToken(token);
+        if(loginRequest.isFromgate()!=null && !loginRequest.isFromgate()) {
+            String token = getJwtToken(userId, "", "18565574703");
+            loginRes.setToken(token);
+        }
 
         return this.getResult(this.JsonViewSuc("登录成功",loginRes));
 
@@ -90,45 +92,15 @@ public class UserAction extends ActionSupport {
 
     }
 
-    @Operation(summary  = "网关登录", description  ="用于用户网关登录")
-    @ApiResponse(description = "响应", useReturnTypeSchema=true)
-    @RequestBody(description = " data in the json format", content = @Content(mediaType = "application/json"))
-    @AkaMvcActionMethod(httpMethod = "post")
-    public CbResult<GatewayLoginResponse> gatewayLogin(@RequestBody CbRequest<LoginRequest> request){
-        this.getRequest().getSession().invalidate();
-        RequestUtils ru=this.getRequestUtils();
-        LoginRequest loginRequest=request.getData();
-        String userName=loginRequest.getUsername();
-        String userPass=loginRequest.getUserpass();
-        String smsCode=loginRequest.getSmscode();
-        if(userName.isEmpty()){
-            return this.getResult(this.JsonViewError("用户姓名不能为空！"));
-        }
-        GatewayLoginResponse loginRes=new GatewayLoginResponse();
-        String userId=SnowflakeIdWorker.instance.nextId()+"";
-        loginRes.setUserId(userId);
-        return this.getResult(this.JsonViewSuc(loginRes));
-    }
 
-    public static class GatewayLogoutRequset{
-        private String userId;
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-    }
     @Operation(summary  = "网关退出", description  ="用于用户网关退出")
     @ApiResponse(description = "响应", useReturnTypeSchema=true)
     @RequestBody(description = " data in the json format", content = @Content(mediaType = "application/json"))
     @AkaMvcActionMethod(httpMethod = "post")
-    public CbResult<String> gatewayLogout(@RequestBody CbRequest<GatewayLogoutRequset> request){
+    public CbResult<String> logout(@RequestBody CbRequest<LogoutRequset> request){
         this.getRequest().getSession().invalidate();
         RequestUtils ru=this.getRequestUtils();
-        GatewayLogoutRequset loginRequest=request.getData();
+        LogoutRequset loginRequest=request.getData();
         String userId=loginRequest.getUserId();
         if(StringUtils.isEmpty(userId)){
             return this.getResult(this.JsonViewError("用户id不能为空！"));

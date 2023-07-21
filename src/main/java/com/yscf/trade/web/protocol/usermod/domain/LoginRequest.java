@@ -4,7 +4,15 @@ public class LoginRequest {
     private String username;
     private String userpass;
     private String smscode;
+    private Boolean fromgate=false;
 
+    public Boolean isFromgate() {
+        return fromgate;
+    }
+
+    public void setFromgate(Boolean fromgate) {
+        this.fromgate = fromgate;
+    }
     public String getUsername() {
         return username;
     }

@@ -70,8 +70,7 @@ aka:
           #jwt认证忽略的协议号，如果后面跟一个*，表明是前缀匹配
           exclude-protocol:
             - usermod-User-login
-            - usermod-User-gatewayLogin
-            - usermod-User-gatewayLogout
+            - usermod-User-logout
           secret: hong1mu2zhi3ruan4jexge_33@#&@sdffian5
           #携带token的媒介，分header，query，cookie ，可以设置多个，以英文逗号隔开
           param-in: cookie
