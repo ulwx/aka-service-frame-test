@@ -3,11 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>aka-service-frame-test</artifactId>
   <packaging>jar</packaging>
-    <version>2.1-SNAPSHOT</version>
     <parent>
         <groupId>com.github.ulwx</groupId>
         <artifactId>aka-common-parent</artifactId>
-        <version>2.0</version>
+        <version>2.1-SNAPSHOT</version>
         <relativePath>../aka-common-parent/pom.xml</relativePath>
     </parent>
     <build>
@@ -27,7 +26,6 @@
         </plugins>
     </build>
   <dependencies>
-
       <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-test</artifactId>
@@ -36,7 +34,6 @@
       <dependency>
           <groupId>com.github.ulwx</groupId>
           <artifactId>aka-service-frame</artifactId>
-
       </dependency>
 
       <dependency>
